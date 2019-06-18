@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="pinyougou-dao:war">
+    <output-path>$PROJECT_DIR$/pinyougou-dao/target</output-path>
+    <root id="archive" name="pinyougou-dao.war">
+      <element id="artifact" artifact-name="pinyougou-dao:war exploded" />
+    </root>
+  </artifact>
+</component>
