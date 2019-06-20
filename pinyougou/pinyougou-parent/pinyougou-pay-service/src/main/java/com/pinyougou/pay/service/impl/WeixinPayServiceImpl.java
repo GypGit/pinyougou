@@ -54,10 +54,8 @@ public class WeixinPayServiceImpl implements WeixinPayService {
             return map;
         } catch (Exception e) {
             e.printStackTrace();
+            return new HashMap();
         }
-
-
-        return null;
     }
 
     @Override
@@ -68,7 +66,23 @@ public class WeixinPayServiceImpl implements WeixinPayService {
         param.put("out_trade_no", out_trade_no);
         param.put("nonce_str", WXPayUtil.generateNonceStr());
         String url="https://api.mch.weixin.qq.com/pay/orderquery";
-        
-        return null;
+        try {
+            String xmlParam = WXPayUtil.generateSignedXml(param, partnerkey);
+            HttpClient client = new HttpClient(url);
+            client.setHttps(true);
+            client.setXmlParam(xmlParam);
+            client.post();
+
+            String result = client.getContent();
+            System.out.println(result);
+            Map<String, String> map = WXPayUtil.xmlToMap(result);
+            System.out.println(map);
+            return map;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }
